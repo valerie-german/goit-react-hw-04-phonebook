@@ -1,0 +1,27 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  width: 400px;
+  list-style: none;
+}
+.li {
+  width: 400px;
+  padding: 10px;
+}
+.contact {
+  display: inline-block;
+  margin-right: 40px;
+}
+.btn {
+  align-self: flex-end;
+  width: 120px;
+  height: 36px;
+  background-color: rgba(84, 148, 148, 0.637);
+  border: solid 1px #e4e9f0;
+  border-radius: 5px;
+  color: #fff;
+  padding: 0px 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+}

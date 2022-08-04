@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Section } from 'components/Section/Section';
 import { Form } from 'components/Form/Form';
 import { ContactsList } from 'components/ContactsList/ContactsList';
 import { Filter } from 'components/Filter/Filter';
@@ -29,7 +28,7 @@ export class App extends Component {
           contacts: [...prevState.contacts, data],
         };
       }
-      alert('message');
+      alert(`${data.name} is already in contacts`);
       return prevState;
     });
   };
@@ -37,8 +36,6 @@ export class App extends Component {
   сhangeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
-
-  //  prevState.contacts.filter(contact => contact.id !== id)
 
   deleteContact = id => {
     this.setState(prevState => {
@@ -57,16 +54,14 @@ export class App extends Component {
 
     return (
       <div>
-        <Section title="Phonebook">
-          <Form onFormSubmit={this.formSubmitHandler}></Form>
-        </Section>
-        <Section title="Contacts">
-          <Filter value={this.state.value} onChange={this.сhangeFilter} />
-          <ContactsList
-            contacts={visibleContacts || this.state.contacts}
-            onDeleteContact={this.deleteContact}
-          />
-        </Section>
+        <h1>Phonebook</h1>
+        <Form onFormSubmit={this.formSubmitHandler}></Form>
+        <h2>Contacts</h2>
+        <Filter value={this.state.value} onChange={this.сhangeFilter} />
+        <ContactsList
+          contacts={visibleContacts || this.state.contacts}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }

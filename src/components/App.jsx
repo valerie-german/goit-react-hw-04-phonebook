@@ -19,18 +19,14 @@ export class App extends Component {
   };
 
   addToContacts = data => {
-    this.setState(prevState => {
-      let result = prevState.contacts.find(
-        contact => contact.name === data.name
-      );
-      if (!result) {
-        return {
-          contacts: [...prevState.contacts, data],
-        };
-      }
+    const isNameExist = this.state.contacts.find(
+      contact => contact.name === data.name
+    );
+    if (isNameExist) {
       alert(`${data.name} is already in contacts`);
-      return prevState;
-    });
+      return;
+    }
+    this.setState(prevState => ({ contacts: [...prevState.contacts, data] }));
   };
 
   сhangeFilter = event => {
@@ -38,12 +34,11 @@ export class App extends Component {
   };
 
   deleteContact = id => {
-    this.setState(prevState => {
-      let newContacts = prevState.contacts.filter(contact => contact.id !== id);
-
-      return {
-        contacts: newContacts,
-      };
+    const remainingContacts = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+    this.setState({
+      contacts: remainingContacts,
     });
   };
 

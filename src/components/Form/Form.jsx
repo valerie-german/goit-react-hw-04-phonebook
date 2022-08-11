@@ -4,7 +4,7 @@ import css from './Form.module.css';
 
 export class Form extends Component {
   state = {
-    id: nanoid(),
+    id: '',
     name: '',
     number: '',
   };
@@ -15,6 +15,7 @@ export class Form extends Component {
   handleValueChange = event => {
     const { name, value } = event.currentTarget;
     this.setState({
+      id: nanoid(),
       [name]: value,
     });
   };

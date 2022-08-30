@@ -1,68 +1,77 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import css from './Form.module.css';
 
-export class Form extends Component {
-  state = {
-    id: '',
-    name: '',
-    number: '',
-  };
+export function Form ({onFormSubmit}){
+ 
+const [id, setId] = useState('');
+const [name, setName] = useState('');
+const [number, setNumber] = useState('');
 
-  nameInputId = nanoid();
-  numberInputId = nanoid();
 
-  handleValueChange = event => {
+ const nameInputId = nanoid();
+ const numberInputId = nanoid();
+
+ const handleValueChange = event => {
     const { name, value } = event.currentTarget;
-    this.setState({
-      id: nanoid(),
-      [name]: value,
-    });
+        
+    switch (name) {
+      case "name":
+        setName(value);
+        setId(nanoid());
+        break;
+    
+      case "number":
+        setNumber(value);
+        break;
+    
+         
+      default:
+        return;
+    }
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-
-    this.props.onFormSubmit(this.state);
-    this.reset();
+    
+    onFormSubmit(id, name, number);
+    reset();
   };
 
-  reset = () => {
-    this.setState({
-      id: '',
-      name: '',
-      number: '',
-    });
+  const reset = () => {
+    setId('');
+    setName('');
+    setNumber('');
   };
 
-  render() {
+  
     return (
-      <form action="" onSubmit={this.handleSubmit} className={css.form}>
-        <label htmlFor={this.nameInputId} className={css.label}>
+      <form action="" onSubmit={handleSubmit} className={css.form}>
+        <label htmlFor={nameInputId} className={css.label}>
           Name
           <input
             type="text"
             name="name"
-            value={this.state.name}
+            value={name}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            id={this.nameInputId}
-            onChange={this.handleValueChange}
+            id={nameInputId}
+            onChange={handleValueChange}
             className={css.input}
           />
         </label>
-        <label htmlFor={this.numberInputId} className={css.label}>
+        <label htmlFor={numberInputId} className={css.label}>
           Number
           <input
             type="tel"
             name="number"
-            value={this.state.number}
+            value={number}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            id={this.numberInputId}
-            onChange={this.handleValueChange}
+            id={numberInputId}
+            onChange={handleValueChange}
             className={css.input}
           />
         </label>
@@ -72,4 +81,4 @@ export class Form extends Component {
       </form>
     );
   }
-}
+
